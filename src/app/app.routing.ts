@@ -40,7 +40,7 @@ const appRoutes: Routes = [
      { path: '' , component: FooterComponent, outlet: 'footer'}
   ]},
   { path: '', children:[
-     { path: 'employee', component: EmployeeComponent},
+     { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuard] },
      { path: '' , component: Header2Component, outlet: 'header'},
      { path: '' , component: FooterComponent, outlet: 'footer'},
   ]},

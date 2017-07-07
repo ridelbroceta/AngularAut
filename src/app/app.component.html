@@ -1,8 +1,14 @@
 ﻿<!-- main app container -->
-<router-outlet name="header"></router-outlet>
 
-<section class="body">
+<div class="container-fluid">
+    <router-outlet name="header"></router-outlet>
+</div>
+<div class="container-fluid" [ngStyle]="{'padding-top' : paddingTop }">
     <router-outlet></router-outlet>
-</section>
+</div>
+<div class="container-fluid">
+    <router-outlet name="footer"></router-outlet>
+</div>
 
-<router-outlet name="footer"></router-outlet>
+
+

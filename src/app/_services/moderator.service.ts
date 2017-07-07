@@ -5,7 +5,7 @@ import { AppComponent } from './../app.component'
 @Injectable()
 export class ModeratorService {
 
-  public principalComponent: AppComponent;
+  private principalComponent: AppComponent;
 
   constructor() { }
 
@@ -13,6 +13,13 @@ export class ModeratorService {
     this.principalComponent = principal;
   }
 
+  setPaddingTop(value: string) {
+    this.principalComponent.setPaddingTop(value);
+  }
+
+  setBodyBackground(value: string) {
+    this.principalComponent.setBodyBackground(value);
+  }
 
   alone(){
    // this.principalComponent.pageNormal = false;
