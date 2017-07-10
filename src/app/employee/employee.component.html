@@ -1,3 +1,15 @@
 <p>
   employee works!
 </p>
+
+<div>
+        Employees from secure api end point:
+        <ul>
+            <li *ngFor="let employee of employees">
+                {{employee.EmpNo}} - 
+                {{employee.EmpName}} -
+                {{employee.Salary}} -
+                {{employee.DeptName}}
+            </li>
+        </ul>
+    </div>

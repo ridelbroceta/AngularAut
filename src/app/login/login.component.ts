@@ -50,14 +50,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
        //this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:16174/home/toframe');
 
       //this.initForm(); 
-      this.authenticationService.getEnterpriseConnect()
+      /*this.authenticationService.getEnterpriseConnect()
             .subscribe(result => {
 
                 console.log(result)
                // this.enterpriseConnect.baseUrl = result.BaseUrl;
                 //this.enterpriseConnect.secret = result.Secret;
                 this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(result.BaseUrl + '?secret=' + result.Secret + '&copyright=false');
-            });
+            });*/
 
     }
 
@@ -74,11 +74,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
        Promise.resolve(null).then(() => this.moderator.setBodyBackground('radial-gradient(rgb(48, 111, 190) 0%,rgb(227, 235, 245) 100%)'));
 
-      if (window.addEventListener) {
+     /* if (window.addEventListener) {
             window.addEventListener("message", this.handleEnterpriseConnectFeedback.bind(this), false);
         } else {
             console.log('[Security Service] Unable to attach event listeners for login method.');
-        }
+        }*/
        
     }
 
@@ -136,7 +136,7 @@ handleEnterpriseConnectFeedback(response: any){
                 // we need to decrypt that and then finalize the login process
                 console.log(authToken)
                 this.loading = true;
-                this.authenticationService.login(authToken.token, authToken.user)
+                this.authenticationService.login(authToken.user, authToken.token)
                     .subscribe(result => {
                         if (result === true) {
                            this.router.navigate([this.returnUrl]);
@@ -161,6 +161,20 @@ handleEnterpriseConnectFeedback(response: any){
    }     
 }
 
-
+login() {
+    let authToken = new  AuthenticationToken('Maxelltdk1234*', 'nbordelon', 'true');
+    console.log(authToken)
+    this.loading = true;
+    this.authenticationService.login(authToken.user, authToken.token)
+        .subscribe(result => {
+            if (result === true) {
+                this.router.navigate([this.returnUrl]);
+            } else {
+                this.error = 'Username or password is incorrect';
+                this.loading = false;
+            }
+        });                
+    
+}
 
 }

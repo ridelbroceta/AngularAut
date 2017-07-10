@@ -39,27 +39,30 @@ export class AuthenticationService {
             });
     }*/
 
-    login(token: string, userId: string): Observable<boolean> {
+    login(userName: string, secret_token: string): Observable<boolean> {
         console.log('login service');    
         let headers = new Headers();
-       // headers.append('Content-Type', 'application/json');
-       headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        //headers.append('Content-Type', 'application/json');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
         //return this.http.post('http://localhost:16174/api/account/Token',
-          //                      JSON.stringify({ UserName: userId, Token: token }),
+          //                      JSON.stringify({ UserName: userId, Password: token }),
             //                    {headers: headers})
         return this.http.post('http://localhost:16174/Token',
-                                $.param({ grant_type: 'password', username: userId, password: token }),
+                                $.param({ grant_type: 'password', username: userName, password: secret_token }),
                                 {headers: headers})
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;
-                if (token) {
+                let data = response.json();
+                if (data.access_token) {
                     // set token property
-                    this.token = token;
+                   // this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    sessionStorage.setItem('currentUser', JSON.stringify({ username: userId, token: token }));
+                    localStorage.setItem('currentUser', 
+                            JSON.stringify({ username: data.userName, 
+                                             access_token: data.access_token,
+                                             type: data.token_type}));
 
                     // return true to indicate successful login
                     return true;
@@ -95,6 +98,6 @@ export class AuthenticationService {
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
-        sessionStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser');
     }
 }

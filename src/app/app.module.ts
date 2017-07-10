@@ -12,7 +12,7 @@ import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
 import { AuthGuard } from './_guards/index';
-import { AuthenticationService, UserService, ModeratorService } from './_services/index';
+import { AuthenticationService, UserService, ModeratorService, EmployeeService } from './_services/index';
 import { LoginComponent } from './login/index';
 import { HomeComponent } from './home/index';
 import { AloneComponent } from './alone/alone.component';
@@ -54,6 +54,7 @@ import { MenuComponent } from './menu/menu.component';
         AuthGuard,
         AuthenticationService,
         UserService,
+        EmployeeService,
 
         // providers used to create fake backend
         //fakeBackendProvider,
